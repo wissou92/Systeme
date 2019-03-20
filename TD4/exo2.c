@@ -3,6 +3,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <stdlib.h>
+#include <time.h>
 
 
 int main() 
@@ -10,7 +11,7 @@ int main()
 	pid_t a;
 	int i;
 	
-	srand(time(NULL)):
+	srand(time(NULL));
 	
 	for(i=0; i<10; i++)
 	{
