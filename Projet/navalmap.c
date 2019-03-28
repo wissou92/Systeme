@@ -4,12 +4,13 @@
 #include <time.h>
 
 navalmap_t * read_fileInput (char * fileName) {
-	int fd = open(fileName, O_RDONLY);
-	/*if (fd == -1) {
-		
-	}*/
-	char lignes[100];
-	read (fd, ligne, 100);
+	int fd = open (fileName, O_RDONLY);
+	if (fd == -1) {
+		fprintf (stderr, "erreur lecture fichier\n");
+		exit (EXIT_FAILURE);
+	}
+	
+	
 	
 	navalmap_t * naval_map = init_navalmap ( );
 	close (fd);
