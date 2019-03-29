@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 navalmap_t * read_fileInput (char * fileName) {
 	int fd = open (fileName, O_RDONLY);
@@ -9,11 +14,76 @@ navalmap_t * read_fileInput (char * fileName) {
 		fprintf (stderr, "erreur lecture fichier\n");
 		exit (EXIT_FAILURE);
 	}
+	int information = 1; // Pour voir quelle information on a en face de nous
+	int i = 0;
+	int j = 0;
+	int nb_bytes;
+	map_t mapType = MAP_TOTAL;
+	coord_t mapSize;
+	int nbShips;
+	char * string = malloc (sizeof (char)*200);
+	nb_bytes = read (fd, &string, 200);
+	string [nb_bytes] = '\0';
 	
-	
-	
-	navalmap_t * naval_map = init_navalmap ( );
+	while (string[i] != '\0') {
+		char * string_tmp = malloc (sizeof (char)* 15);
+		j = 0;
+		while (string [i] != '\0' && string [i] != ';' && string [i] != '\n') {
+			string_tmp [j] = string [i];
+			++i;
+			++j;
+		}
+		++i;
+		string_tmp [j] = '\0';
+		printf ("string_tmp: %s", string_tmp);
+		
+		switch(information) {
+			int taille;
+			case 1: // Type de map
+				if (strcmp (string_tmp, "rectangle") == 0)
+				{
+					mapType = MAP_RECT;
+				}
+				break;
+			
+			case 2: // Taille X
+				taille = j-1;
+				mapSize.x = 0;
+				for (int n=0; n<j+1; ++n) {
+					mapSize.x += atoi (&string[n]) * 10^(taille);
+					--taille;
+				}
+				break;
+			
+			case 3: // Taille Y
+			
+				break;
+			
+			case 4: // nbJoueurs
+			
+				break;
+			
+			case 5: // Cmax
+			
+				break;
+			
+			case 6: // Kmax
+			
+				break;
+			
+			case 7: // nbTours
+			
+				break;
+			
+			default:
+				
+				break;
+		}
+		free (string_tmp);
+	}
+	free (string);
 	close (fd);
+	return init_navalmap (mapType, mapSize, nbShips);
 }
 
 void initNavalMapLib () {
