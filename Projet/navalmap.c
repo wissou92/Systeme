@@ -18,9 +18,11 @@ navalmap_t * read_fileInput (char * fileName) {
 	int i = 0;
 	int j = 0;
 	int nb_bytes;
+	int nbShips;
+	int Cmax, Kmax, nbTours;
 	map_t mapType = MAP_TOTAL;
 	coord_t mapSize;
-	int nbShips;
+	
 	char * string = malloc (sizeof (char)*200);
 	nb_bytes = read (fd, &string, 200);
 	string [nb_bytes] = '\0';
@@ -56,29 +58,54 @@ navalmap_t * read_fileInput (char * fileName) {
 				break;
 			
 			case 3: // Taille Y
-			
+				taille = j-1;
+				mapSize.y = 0;
+				for (int n=0; n<j+1; ++n) {
+					mapSize.y += atoi (&string[n]) * 10^(taille);
+					--taille;
+				}
 				break;
 			
 			case 4: // nbJoueurs
-			
+				taille = j-1;
+				nbShips = 0;
+				for (int n=0; n<j+1; ++n) {
+					nbShips += atoi (&string[n]) * 10^(taille);
+					--taille;
+				}
 				break;
 			
 			case 5: // Cmax
-			
+				taille = j-1;
+				Cmax = 0;
+				for (int n=0; n<j+1; ++n) {
+					Cmax += atoi (&string[n]) * 10^(taille);
+					--taille;
+				}
 				break;
 			
 			case 6: // Kmax
-			
+				taille = j-1;
+				Kmax = 0;
+				for (int n=0; n<j+1; ++n) {
+					Kmax += atoi (&string[n]) * 10^(taille);
+					--taille;
+				}
 				break;
 			
 			case 7: // nbTours
-			
+				taille = j-1;
+				nbTours = 0;
+				for (int n=0; n<j+1; ++n) {
+					nbTours += atoi (&string[n]) * 10^(taille);
+					--taille;
+				}
 				break;
-			
 			default:
 				
 				break;
 		}
+		++information;
 		free (string_tmp);
 	}
 	free (string);
