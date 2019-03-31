@@ -39,7 +39,8 @@ typedef struct navalmap {
 	//	nm->initEntityMap (nm);
 	//	nm->isMovePossible (nm, 4, pos);
 	// Pour plus d'informations, reportez-vous aux définitions de ces fonctions dans les fichiers nm_*.h
-	void (* initEntityMap) (struct navalmap *);				//< Fonction initialisant les entités présentes sur la carte
+	void (* initEntityMap) (struct navalmap *);				
+															//< Fonction initialisant les entités présentes sur la carte
 	int (* isMovePossible) (struct navalmap *, const int, const coord_t);
 															//< Fonction indiquant si un mouvement est possible
 	int * (* getTargets) (struct navalmap *, const coord_t, const int, int *);
