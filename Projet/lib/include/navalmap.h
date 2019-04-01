@@ -1,3 +1,4 @@
+#include <stddef.h>
 #ifndef _H_NAVALMAP_
 #define _H_NAVALMAP_
 

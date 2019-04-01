@@ -9,141 +9,52 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-/*navalmap_t * read_fileInput (char * fileName) {
-	
-	int fd = open (fileName, O_RDONLY);
-	
-	if (fd == -1) {
-		fprintf (stderr, "erreur lecture fichier\n");
-		exit (EXIT_FAILURE);
-	}
-	
-	int information = 1; // Pour voir quelle information on a en face de nous
-	int i = 0;
-	int j = 0;
-	
-	
-	int nb_bytes;
-	int nbShips;
-	int Cmax, Kmax, nbTours;
-	
-	map_t mapType = MAP_TOTAL;
-	coord_t mapSize;
-	
-	char * string = malloc (sizeof (char)*200);
-	
-	nb_bytes = read (fd, &string, 200);
-	string [nb_bytes] = '\0';
-	
-	
-	
-	while (string[i] != '\0') {
-		char * string_tmp = malloc (sizeof (char)* 15);
-		j = 0;
-		while (string [i] != '\0' && string [i] != ';' && string [i] != '\n') {
-			string_tmp [j] = string [i];
-			++i;
-			++j;
-		}
-		++i;
-		string_tmp [j] = '\0';
-		printf ("string_tmp: %s", string_tmp);
+void switch_info(info_t * fic, int i) {
+	switch (i) {
 		
-		switch(information) {
-			int taille;
-			case 1: // Type de map
-				if (strcmp (string_tmp, "rectangle") == 0)
-				{
-					mapType = MAP_RECT;
-				}
-				break;
-			
-			case 2: // Taille X
-				taille = j-1;
-				mapSize.x = 0;
-				for (int n=0; n<j+1; ++n) {
-					mapSize.x += atoi (&string[n]) * 10^(taille);
-					--taille;
-				}
-				break;
-			
-			case 3: // Taille Y
-				taille = j-1;
-				mapSize.y = 0;
-				for (int n=0; n<j+1; ++n) {
-					mapSize.y += atoi (&string[n]) * 10^(taille);
-					--taille;
-				}
-				break;
-			
-			case 4: // nbJoueurs
-				taille = j-1;
-				nbShips = 0;
-				for (int n=0; n<j+1; ++n) {
-					nbShips += atoi (&string[n]) * 10^(taille);
-					--taille;
-				}
-				break;
-			
-			case 5: // Cmax
-				taille = j-1;
-				Cmax = 0;
-				for (int n=0; n<j+1; ++n) {
-					Cmax += atoi (&string[n]) * 10^(taille);
-					--taille;
-				}
-				break;
-			
-			case 6: // Kmax
-				taille = j-1;
-				Kmax = 0;
-				for (int n=0; n<j+1; ++n) {
-					Kmax += atoi (&string[n]) * 10^(taille);
-					--taille;
-				}
-				break;
-			
-			case 7: // nbTours
-				taille = j-1;
-				nbTours = 0;
-				for (int n=0; n<j+1; ++n) {
-					nbTours += atoi (&string[n]) * 10^(taille);
-					--taille;
-				}
-				break;
-			default:
-				
-				break;
-		}
-		++information;
-		free (string_tmp);
+		
 	}
-	free (string);
-	close (fd);
-	return init_navalmap (mapType, mapSize, nbShips);
 }
-* */
+
 size_t getFileSize(char * filename) {
 	struct stat st;
 	stat (filename, &st);	
 	return st.st_size;
 }
 void read_input (char * filename) {
-	info_t fic;
-	char * map;
-	int fd;
-	size_t taille = getFileSize (filename);
+	int fd;			int i, j;		int k = 0;
+	info_t fic;		size_t taille = getFileSize (filename);
+	char * map;		char ** string = malloc (sizeof (char *) * 7);
 	
+	for (i = 0; i<7; ++i) {
+		string [i] = malloc (sizeof (char) * 15);
+	}
 	
 	if ((fd = open (filename, O_RDONLY)) == -1)
 		perror("opening file process failed");
 		
 		
 	map = (char *)mmap (NULL, taille, PROT_READ, MAP_PRIVATE, fd, 0);
-	printf ("%s\n" , map);
 	
+	printf ("%s\n" , map);
+	i = 0;
+	while(i != 7)
+	{
+		while (map [k] != ';')
+		{
+			string [i][j] = map [k];
+			++j; ++k;
+		}
+		switch_info(&fic, i);
+		++i;
+		j = 0;
+	}
 	
 	munmap (map, taille);
+	for (i = 0; i<7; ++i) {
+		free (string [i]);
+	}
+	free (string);
 	close(fd);
 }
 

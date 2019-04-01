@@ -1,10 +1,21 @@
-.PHONY: all lib debug
+NOM=SeaOfDevs
+LIB_DIR=./lib
+INCL_DIR=./lib/include
 
-all: lib
+all: compile run
 
-lib:
-	gcc -g -c -fPIC navalmap.c nm_rect.c
-	ar rcs libnm.a navalmap.o nm_rect.o
+run:
+	./$(NOM) input.sod
 
-debug:
-	gcc -g -o prog main.c -L. -lnm
+compile:
+	cd $(LIB_DIR) && $(MAKE)
+	gcc -o $(NOM) -I$(INCL_DIR) $(NOM).c -L$(LIB_DIR) -lnm
+
+.PHONY: clean mrproper
+
+clean:
+	rm -rf $(NOM)
+
+mrproper: clean
+	rm -rf $(LIB_DIR)/*.o
+	rm -rf $(LIB_DIR)/libnm.a
