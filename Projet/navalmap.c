@@ -5,27 +5,37 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/mman.h>
 #include <fcntl.h>
 #include <unistd.h>
 
-navalmap_t * read_fileInput (char * fileName) {
+/*navalmap_t * read_fileInput (char * fileName) {
+	
 	int fd = open (fileName, O_RDONLY);
+	
 	if (fd == -1) {
 		fprintf (stderr, "erreur lecture fichier\n");
 		exit (EXIT_FAILURE);
 	}
+	
 	int information = 1; // Pour voir quelle information on a en face de nous
 	int i = 0;
 	int j = 0;
+	
+	
 	int nb_bytes;
 	int nbShips;
 	int Cmax, Kmax, nbTours;
+	
 	map_t mapType = MAP_TOTAL;
 	coord_t mapSize;
 	
 	char * string = malloc (sizeof (char)*200);
+	
 	nb_bytes = read (fd, &string, 200);
 	string [nb_bytes] = '\0';
+	
+	
 	
 	while (string[i] != '\0') {
 		char * string_tmp = malloc (sizeof (char)* 15);
@@ -111,6 +121,30 @@ navalmap_t * read_fileInput (char * fileName) {
 	free (string);
 	close (fd);
 	return init_navalmap (mapType, mapSize, nbShips);
+}
+* */
+size_t getFileSize(char * filename) {
+	struct stat st;
+	stat (filename, &st);	
+	return st.st_size;
+}
+void read_input (char * filename) {
+	info_t fic;
+	char * map;
+	int fd;
+	size_t taille = getFileSize (filename);
+	
+	
+	if ((fd = open (filename, O_RDONLY)) == -1)
+		perror("opening file process failed");
+		
+		
+	map = (char *)mmap (NULL, taille, PROT_READ, MAP_PRIVATE, fd, 0);
+	printf ("%s\n" , map);
+	
+	
+	munmap (map, taille);
+	close(fd);
 }
 
 void initNavalMapLib () {

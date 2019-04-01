@@ -1,6 +1,18 @@
 #ifndef _H_NAVALMAP_
 #define _H_NAVALMAP_
 
+
+// Pour stocker les informations provenant du fichier d'entrée
+typedef struct {
+	char *		typeCarte;
+	int			tailleX;
+	int			tailleY;
+	int			nbJoueurs;
+	int			Cmax;
+	int			Kmax;
+	int			nbTours;
+} info_t;
+
 // Paire d'entiers représentant entre autre des coordonnées
 typedef struct {
 	int									x;					//< Premier entier
@@ -93,6 +105,10 @@ void placeShip (
 	navalmap_t							* nmap,
 	const int							shipID,
 	const coord_t						pos);
+	
+size_t getFileSize(char * filename);
+
+void read_input (char * filename);
 
 #include "nm_rect.h"
 
