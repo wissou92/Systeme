@@ -107,9 +107,19 @@ void placeShip (
 	const int							shipID,
 	const coord_t						pos);
 	
+// Retourne la taille d'un fichier dont le nom est passé en paramètre
+// \param								filename		nom du fichier
 size_t getFileSize(char * filename);
 
+// Remplit une structure en fonction des informations dans le fichier d'entrée passé en paramètre
+// \param								filename		nom du fichier
+// \return												structure contenant les informations du fichier
 info_t read_input (char * filename);
+
+// initialise la carte navale en fonction de la structure contenant les informations nécessaires
+// \param								fic				structure avec les informations
+// \return												carte navale initialisée
+navalmap_t * init_navalMap (info_t fic);
 
 #include "nm_rect.h"
 

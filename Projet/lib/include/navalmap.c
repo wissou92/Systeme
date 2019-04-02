@@ -10,6 +10,13 @@
 #include <unistd.h>
 #include <assert.h>
 
+navalmap_t * init_navalMap(info_t fic) {
+	coord_t taille;
+	taille.x = fic.tailleX; taille.y = fic.tailleY;
+	initNavalMapLib ();
+	return init_navalmap ((strcmp(fic.typeCarte, "rectangle") == 0) ? MAP_RECT : MAP_TOTAL, taille, fic.nbJoueurs);
+}
+
 void switch_info(info_t * fic, int i, char * string) {
 	switch (i) {
 		case 0: 		// Map type

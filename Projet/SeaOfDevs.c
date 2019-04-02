@@ -10,7 +10,8 @@ int main (int argc, char ** argv) {
 	}
 	
 	info_t fic = read_input (argv [1]);
-	printf ("MapType: %s\nTaillex:%d\nTailley:%d\nnbJoueurs:%d\nCmax:%d\nKmax:%d\nnbTours:%d\n", fic.typeCarte, fic.tailleX, fic.tailleY, fic.nbJoueurs, fic.Cmax, fic.Kmax, fic.nbTours);
+	navalmap_t * nmap = init_navalMap (fic);
 	
+	//printf ("MapType: %s\nTaillex:%d\nTailley:%d\nnbJoueurs:%d\nCmax:%d\nKmax:%d\nnbTours:%d\n", fic.typeCarte, fic.tailleX, fic.tailleY, fic.nbJoueurs, fic.Cmax, fic.Kmax, fic.nbTours);
 	exit(0);
 }
