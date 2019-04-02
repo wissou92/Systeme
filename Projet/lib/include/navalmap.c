@@ -8,11 +8,35 @@
 #include <sys/mman.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <assert.h>
 
-void switch_info(info_t * fic, int i) {
+void switch_info(info_t * fic, int i, char * string) {
 	switch (i) {
-		
-		
+		case 0: 		// Map type
+			(*fic).typeCarte = malloc (sizeof (string));
+			strcpy ((*fic).typeCarte, string);
+			break;
+		case 1:		// Taille x
+			(*fic).tailleX = atoi(string);
+			break;
+		case 2: 		// Taille y
+			(*fic).tailleY = atoi(string);
+			break;
+		case 3: 		// nbJoueurs
+			(*fic).nbJoueurs = atoi(string);
+			break;
+		case 4: 		// Cmax
+			(*fic).Cmax = atoi(string);
+			break;
+		case 5: 		// Kmax
+			(*fic).Kmax = atoi(string);
+			break;
+		case 6: 		// nbTours
+			(*fic).nbTours = atoi(string);
+			break;
+		default:
+			printf ("information does not exist\n");
+			break;		
 	}
 }
 
@@ -21,13 +45,13 @@ size_t getFileSize(char * filename) {
 	stat (filename, &st);	
 	return st.st_size;
 }
-void read_input (char * filename) {
-	int fd;			int i, j;		int k = 0;
+info_t read_input (char * filename) {
+	int fd;			int i = 0, j = 0, k = 0;
 	info_t fic;		size_t taille = getFileSize (filename);
 	char * map;		char ** string = malloc (sizeof (char *) * 7);
 	
 	for (i = 0; i<7; ++i) {
-		string [i] = malloc (sizeof (char) * 15);
+		string [i] = malloc (sizeof (char) * 20);
 	}
 	
 	if ((fd = open (filename, O_RDONLY)) == -1)
@@ -35,19 +59,16 @@ void read_input (char * filename) {
 		
 		
 	map = (char *)mmap (NULL, taille, PROT_READ, MAP_PRIVATE, fd, 0);
-	
-	printf ("%s\n" , map);
-	i = 0;
-	while(i != 7)
-	{
-		while (map [k] != ';')
+
+	for (i = 0; i<7; ++i) {
+		j = 0;
+		while (map [k] != ';' && map [k] != '\n')
 		{
 			string [i][j] = map [k];
 			++j; ++k;
 		}
-		switch_info(&fic, i);
-		++i;
-		j = 0;
+		switch_info(&fic, i, string [i]);
+		++k;
 	}
 	
 	munmap (map, taille);
@@ -56,6 +77,7 @@ void read_input (char * filename) {
 	}
 	free (string);
 	close(fd);
+	return fic;
 }
 
 void initNavalMapLib () {

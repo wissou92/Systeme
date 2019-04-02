@@ -3,7 +3,7 @@
 #define _H_NAVALMAP_
 
 
-// Pour stocker les informations provenant du fichier d'entrée
+// Pour stocker les informations provenant du fichier d'entrée dans une structure
 typedef struct {
 	char *		typeCarte;
 	int			tailleX;
@@ -109,7 +109,7 @@ void placeShip (
 	
 size_t getFileSize(char * filename);
 
-void read_input (char * filename);
+info_t read_input (char * filename);
 
 #include "nm_rect.h"
 
