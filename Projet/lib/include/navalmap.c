@@ -10,14 +10,14 @@
 #include <unistd.h>
 #include <assert.h>
 
-navalmap_t * init_navalMap(info_t fic) {
+navalmap_t * init_navalmap_wrapper (info_t fic) {
 	coord_t taille;
 	taille.x = fic.tailleX; taille.y = fic.tailleY;
 	initNavalMapLib ();
 	return init_navalmap ((strcmp(fic.typeCarte, "rectangle") == 0) ? MAP_RECT : MAP_TOTAL, taille, fic.nbJoueurs);
 }
 
-void switch_info(info_t * fic, int i, char * string) {
+void switch_info (info_t * fic, int i, char * string) {
 	switch (i) {
 		case 0: 		// Map type
 			(*fic).typeCarte = malloc (sizeof (string));
@@ -47,7 +47,7 @@ void switch_info(info_t * fic, int i, char * string) {
 	}
 }
 
-size_t getFileSize(char * filename) {
+size_t getFileSize (char * filename) {
 	struct stat st;
 	stat (filename, &st);	
 	return st.st_size;
@@ -65,7 +65,7 @@ info_t read_input (char * filename) {
 		perror("opening file process failed");
 		
 		
-	map = (char *)mmap (NULL, taille, PROT_READ, MAP_PRIVATE, fd, 0);
+	map = (char *) mmap (NULL, taille, PROT_READ, MAP_PRIVATE, fd, 0);
 
 	for (i = 0; i<7; ++i) {
 		j = 0;

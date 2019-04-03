@@ -20,6 +20,17 @@ typedef struct {
 	int									y;					//< Second entier
 } coord_t;
 
+// Structure représentant le bateau
+typedef struct {
+	int coque;												//< Pdv de la coque
+	int kerozene;											//< Réservoir de kerozene
+	int id;													//< Id le représentant
+	
+	void (* mouvement) (navalmap_t * nmap, const int shipID, const coord_t moveVec);
+	
+	void (* attaque) (navalmap_t * nmap, const coord_t cible, const int shipID);
+} ship_t;
+
 // Type de carte navale
 typedef enum {
 	MAP_RECT,												//< Carte rectangulaire avec bords
@@ -119,8 +130,8 @@ info_t read_input (char * filename);
 // initialise la carte navale en fonction de la structure contenant les informations nécessaires
 // \param								fic				structure avec les informations
 // \return												carte navale initialisée
-navalmap_t * init_navalMap (info_t fic);
+navalmap_t * init_navalmap_wrapper (info_t fic);
 
 #include "nm_rect.h"
-
+#include "nm_act.h"
 #endif

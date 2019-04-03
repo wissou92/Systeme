@@ -146,7 +146,25 @@ int verifMin (int * tableau, int tailleTableau, int resultat) {
 // \param	argc			Nombre d'arguments
 // \param	argv			Arguments
 // \return					Structure de données des arguments
-arg_t analyseArguments (int argc, char ** argv) {  }
+arg_t analyseArguments (int argc, char ** argv) { 
+	int i; arg_t arg
+	for (i = 1; i<argc+1; i++) {
+		switch (i) {
+			case 1: // Pour m
+				arg.nbThreads = atoi(argv [i]);
+				break;
+			case 2: // Pour n
+				arg.tailleTableau = atoi (argv [i]);
+				break;
+			case 3: // Pour opcode
+				
+				break;
+			default: // default
+				printf ("erreur argument non reconnu");
+				break;
+		}
+	}
+}
 
 // NE PAS TOUCHER
 // Récupération de la fonction de vérification à partir de l'opcode
