@@ -8,6 +8,7 @@ void rect_initEntityMap (
 		for (i = 0; i < nmap->size.x; ++i) {
 			nmap->map [j][i] .type = ENT_SEA;
 			nmap->map [j][i] .id = 0;
+			
 		}
 }
 

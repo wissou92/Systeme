@@ -14,7 +14,18 @@ navalmap_t * init_navalmap_wrapper (info_t fic) {
 	coord_t taille;
 	taille.x = fic.tailleX; taille.y = fic.tailleY;
 	initNavalMapLib ();
-	return init_navalmap ((strcmp(fic.typeCarte, "rectangle") == 0) ? MAP_RECT : MAP_TOTAL, taille, fic.nbJoueurs);
+	navalmap_t * nmap = init_navalmap ((strcmp(fic.typeCarte, "rectangle") == 0) ? MAP_RECT : MAP_TOTAL, taille, fic.nbJoueurs);
+	init_shipRessources (nmap, fic);
+	return nmap;
+}
+
+void init_shipRessources (navalmap_t * nmap, info_t fic) {
+	int i;
+	nmap-> shipInfo = malloc (nmap-> nbShips * sizeof (ship_t))
+	for (i=0; i<nbShips; ++i) {
+		shipInfo [i] .coque = fic .Cmax; 
+		shipInfo [i] .kerozene = fic .Kmax; 
+	}
 }
 
 void switch_info (info_t * fic, int i, char * string) {

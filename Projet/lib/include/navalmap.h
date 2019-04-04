@@ -24,7 +24,6 @@ typedef struct {
 typedef struct {
 	int coque;												//< Pdv de la coque
 	int kerozene;											//< Réservoir de kerozene
-	int id;													//< Id le représentant
 	
 	void (* mouvement) (navalmap_t * nmap, const int shipID, const coord_t moveVec);
 	
@@ -57,7 +56,8 @@ typedef struct navalmap {
 	int									nbShips;			//< Nombre de navires (joueurs) sur la carte
 	coord_t								* shipPosition;		//< Position des navires
 	entityid_t							** map;				//< Carte des entités
-
+	ship_t								* shipInfo			//< Information sur les bateaux
+	
 	// Les pointeurs de fonctions peuvent être utilisés de la manière suivante :
 	//	navalmap_t * nm;
 	//	nm->initEntityMap (nm);
@@ -131,6 +131,8 @@ info_t read_input (char * filename);
 // \param								fic				structure avec les informations
 // \return												carte navale initialisée
 navalmap_t * init_navalmap_wrapper (info_t fic);
+
+void init_shipRessources (navalmap_t * nmap, info_t fic);
 
 #include "nm_rect.h"
 #include "nm_act.h"
