@@ -9,6 +9,13 @@ int getDistance (coord_t initial, coord_t cible) {
 	return (moveVect .x + moveVect .y);
 }
 
+//					AUCUNE ACTION
+void aucun (navalmap_t * nmap, const int shipID) {
+	nmap-> shipInfo [shipID] .kerozene -= 1;
+	printf ("J%d -> NON\n",shipID + 1);
+}
+
+ //					LES ATTAQUES
 void attaque (navalmap_t * nmap, const int shipID, const coord_t cible) {
 	nmap-> shipInfo [shipID] .kerozene -= 5;
 	int i; int distance = getDistance (nmap-> shipPosition [shipID], cible);
@@ -46,6 +53,27 @@ void attaque (navalmap_t * nmap, const int shipID, const coord_t cible) {
 	}
 }
 
+void bombardier (navalmap_t * nmap, const int shipID, const coord_t cible) {
+	nmap -> shipInfo [shipID] .kerozene -= 3;
+	int distance = getDistance (nmap-> shipPosition [shipID], cible);
+	
+	if (cible. x < 0 || cible .x >= nmap-> size .x
+		|| cible .y < 0 || cible .y >= nmap-> size .y) {
+		printf ("Invalid target\n");
+	}
+	else if (distance == 0 || distance  > 5) {
+		printf ("Bombardement: cible invalide\n");
+	}
+	else if (nmap-> map [cible .x][cible .y] .id == ENT_SHIP) {
+		nmap-> shipInfo [nmap-> map [cible .x][cible .y] .id] .coque -= 30;
+		printf ("J%d -> BBS (%d, %d) -> J%d subit 30C\n", shipID + 1, cible .x, cible .y, nmap->map [cible .x][cible .y] .id + 1);
+	}
+	else {
+		printf ("J%d -> BBS (%d, %d) -> Aucune cible touchée\n", shipID + 1, cible.x, cible.y);
+	}
+}
+
+//					LES MOUVEMENTS
 void mouvement (navalmap_t * nmap, const int shipID, const coord_t moveVec) {
 	nmap-> shipInfo [shipID] .kerozene -= 2;
 	coord_t final; int distance;
@@ -54,13 +82,16 @@ void mouvement (navalmap_t * nmap, const int shipID, const coord_t moveVec) {
 	distance = getDistance (nmap-> shipPosition [shipID], final);
 	if (distance == 0 || distance > 2) {
 		printf ("Mouvement impossible\n");
-		return;
 	}
-	if (nmap->isMovePossible (nmap, shipID, moveVec) == 1) {
+	else if (nmap->isMovePossible (nmap, shipID, moveVec) == 1) {
 		moveShip (nmap, shipID, moveVec);
-		printf ("J%d -> MOV (%d, %d)", shipID, moveVec.x, moveVec.y);
-		return;
+		printf ("J%d -> MOV (%d, %d)", shipID + 1, moveVec.x, moveVec.y);
+	}
+	else {
+		printf ("Invalid movement\n");
 	}
 	//nmap->map [shipPosition [shipID] .x + moveVec.x][shipPosition [shipID] .y + moveVec.y] .type != ENT_SHIP
 	//printf ("Invalid move\n");
 }
+
+//					LES RADARS

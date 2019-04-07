@@ -20,14 +20,25 @@ typedef struct {
 	int									y;					//< Second entier
 } coord_t;
 
+/* typedef struct {
+	ship_t shipInfo;
+	coord_t shipPos;
+}radar;*/
+
 // Structure représentant le bateau
 typedef struct {
 	int coque;												//< Pdv de la coque
 	int kerozene;											//< Réservoir de kerozene
-	
-	void (* mouvement) (navalmap_t * nmap, const int shipID, const coord_t moveVec);
-	
-	void (* attaque) (navalmap_t * nmap, const coord_t cible, const int shipID);
+			//< radar 
+
+	void (* aucun)			(navalmap_t * nmap, const int shipID);
+												//< ne fait rien
+	void (* mouvement)		(navalmap_t * nmap, const int shipID, const coord_t moveVec);
+												//< se déplace
+	void (* attaque)		(navalmap_t * nmap, const coord_t cible, const int shipID);
+												//< attaquer
+	void (* bombardier)		(navalmap_t * nmap, const int shipID, const coord_t cible);
+												//< bombarder
 } ship_t;
 
 // Type de carte navale
@@ -136,4 +147,5 @@ void init_shipRessources (navalmap_t * nmap, info_t fic);
 
 #include "nm_rect.h"
 #include "nm_act.h"
+#include "nm_player.h"
 #endif

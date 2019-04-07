@@ -8,11 +8,12 @@ int main (int argc, char ** argv) {
 		printf ("expected arguments: \"./SeaOfDevs filename\"\n");
 		exit(1);
 	}
-	
 	info_t fic = read_input (argv [1]);
 	navalmap_t * nmap = init_navalmap_wrapper (fic);
 	
-	//printf ("MapType: %s\nTaillex:%d\nTailley:%d\nnbJoueurs:%d\nCmax:%d\nKmax:%d\nnbTours:%d\n", fic.typeCarte, fic.tailleX, fic.tailleY, fic.nbJoueurs, fic.Cmax, fic.Kmax, fic.nbTours);
+	
+	
+	
 	free_navalmap (nmap);
 	exit(0);
 }
