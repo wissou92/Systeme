@@ -21,10 +21,10 @@ navalmap_t * init_navalmap_wrapper (info_t fic) {
 
 void init_shipRessources (navalmap_t * nmap, info_t fic) {
 	int i;
-	nmap-> shipInfo = malloc (nmap-> nbShips * sizeof (ship_t))
-	for (i=0; i<nbShips; ++i) {
-		shipInfo [i] .coque = fic .Cmax; 
-		shipInfo [i] .kerozene = fic .Kmax; 
+	nmap-> shipInfo = malloc (nmap-> nbShips * sizeof (ship_t));
+	for (i=0; i<nmap-> nbShips; ++i) {
+		nmap-> shipInfo [i] .coque = fic .Cmax; 
+		nmap-> shipInfo [i] .kerozene = fic .Kmax; 
 	}
 }
 

@@ -1,4 +1,6 @@
 #include "nm_act.h"
+#include "navalmap.h"
+#include <stdio.h>
 
 int getDistance (coord_t initial, coord_t cible) {
 	coord_t moveVect;
@@ -23,7 +25,7 @@ void attaque (navalmap_t * nmap, const int shipID, const coord_t cible) {
 		printf ("Invalid target\n");
 		return;
 	}
-	else if ((distance .x + distance .y )< 2 || (distance .x + distance .y) > 4) {
+	else if ( distance < 2 || distance > 4) {
 		printf ("Cible trop éloignée\n");
 		return;
 	}

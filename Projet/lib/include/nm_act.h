@@ -1,3 +1,5 @@
+#include "navalmap.h"
+
 // Un bateau utilise cette fonction pour attaquer une case cible dans la carte
 //\param							nmap			carte navale
 //\param							cible			coordonnés de la case cible
@@ -24,5 +26,5 @@ void aucun (navalmap_t * nmap, const int shipID);
 // Retourne la distance entre deux cases en "vecteur" (valeur absolue) entre deux cases
 //\param							initial			case de départ
 //\param							cible			case d'arrivée
-coord_t getDistance (coord_t initial, coord_t cible);
+int getDistance (coord_t initial, coord_t cible);
 

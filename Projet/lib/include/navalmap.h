@@ -26,19 +26,19 @@ typedef struct {
 }radar;*/
 
 // Structure représentant le bateau
-typedef struct {
+typedef struct ship {
 	int coque;												//< Pdv de la coque
 	int kerozene;											//< Réservoir de kerozene
 			//< radar 
 
-	void (* aucun)			(navalmap_t * nmap, const int shipID);
+	/*void (* aucun)			(struct navalmap *, const int);
 												//< ne fait rien
-	void (* mouvement)		(navalmap_t * nmap, const int shipID, const coord_t moveVec);
+	void (* mouvement)		(struct navalmap *, const int, const coord_t);
 												//< se déplace
-	void (* attaque)		(navalmap_t * nmap, const coord_t cible, const int shipID);
+	void (* attaque)		(struct navalmap *, const int, const coord_t);
 												//< attaquer
-	void (* bombardier)		(navalmap_t * nmap, const int shipID, const coord_t cible);
-												//< bombarder
+	void (* bombardier)		(struct navalmap *, const int, const coord_t);
+												//< bombarder*/
 } ship_t;
 
 // Type de carte navale
@@ -67,7 +67,7 @@ typedef struct navalmap {
 	int									nbShips;			//< Nombre de navires (joueurs) sur la carte
 	coord_t								* shipPosition;		//< Position des navires
 	entityid_t							** map;				//< Carte des entités
-	ship_t								* shipInfo			//< Information sur les bateaux
+	struct ship							* shipInfo;			//< Information sur les bateaux
 	
 	// Les pointeurs de fonctions peuvent être utilisés de la manière suivante :
 	//	navalmap_t * nm;

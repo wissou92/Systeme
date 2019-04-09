@@ -1,7 +1,10 @@
 #include "nm_player.h"
+#include "navalmap.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/wait.h>
+#include <sys/types.h>
 
 void algorithme_decision (navalmap_t * nmap) {
 	int i; pid_t * pid = malloc (nmap-> nbShips * sizeof (pid_t));
