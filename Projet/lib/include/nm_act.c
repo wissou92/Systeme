@@ -21,7 +21,8 @@ void aucun (navalmap_t * nmap, const int shipID) {
 void attaque (navalmap_t * nmap, const int shipID, const coord_t cible) {
 	nmap-> shipInfo [shipID] .kerozene -= 5;
 	int i; int distance = getDistance (nmap-> shipPosition [shipID], cible);
-	if (distance > 4 || distance < 2) {
+	if (cible .x > nmap-> size .x || cible .x < 0 ||
+		cible .y > nmap-> size .y || cible .y < 0) {
 		printf ("Invalid target\n");
 		return;
 	}
@@ -92,8 +93,31 @@ void mouvement (navalmap_t * nmap, const int shipID, const coord_t moveVec) {
 	else {
 		printf ("Invalid movement\n");
 	}
-	//nmap->map [shipPosition [shipID] .x + moveVec.x][shipPosition [shipID] .y + moveVec.y] .type != ENT_SHIP
-	//printf ("Invalid move\n");
 }
 
 //					LES RADARS
+void radarscn (navalmap_t * nmap, const int shipID) {
+	nmap-> shipInfo [shipID] .kerozene -= 3;
+	printf ("J%d -> SCN\n", shipID + 1);
+	int i, init, tmp;
+	if (shipID == 0) init = 1;
+	else init = 0;
+	
+	int ID = init;
+	int distance = getDistance (nmap-> shipPosition [shipID], nmap-> shipPosition [init]);
+	
+	for (i=init + 1; i<nmap-> nbShips; ++i) {
+		if (i == shipID) continue;
+		tmp = getDistance (nmap-> shipPosition [shipID], nmap-> shipPosition [i]);
+		if (tmp < distance) {
+			 distance = tmp;
+			 ID = i;
+		}
+	}
+	nmap-> shipInfo [shipID] .radar .shipCoque = nmap-> shipInfo [ID] .coque;
+	nmap-> shipInfo [shipID] .radar .shipKerozene = nmap-> shipInfo [ID] .kerozene;
+	nmap-> shipInfo [shipID] .radar .shipPos = nmap-> nmap-> shipPosition [ID];	
+	nmap-> shipInfo [shipID] .radar .distance = distance;
+	nmap-> shipInfo [shipID] .radar .temps = 0;
+}
+

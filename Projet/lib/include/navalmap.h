@@ -20,16 +20,19 @@ typedef struct {
 	int									y;					//< Second entier
 } coord_t;
 
-/* typedef struct {
-	ship_t shipInfo;
-	coord_t shipPos;
-}radar;*/
+typedef struct {
+	int temps;												//< "âge" du radar
+	int distance;											//< Distance du bateau detecté
+	int shipCoque;											//< Coque du bateau détecté
+	int shipKerozene;										//< Kerozene du bateau détecté
+	coord_t shipPos;										//< Coordonnées du bateau détecté
+}radar_t;
 
 // Structure représentant le bateau
 typedef struct ship {
 	int coque;												//< Pdv de la coque
 	int kerozene;											//< Réservoir de kerozene
-			//< radar 
+	radar_t radar;											//< radar 
 
 	/*void (* aucun)			(struct navalmap *, const int);
 												//< ne fait rien

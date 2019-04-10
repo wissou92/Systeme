@@ -1,5 +1,10 @@
 #include "navalmap.h"
 
+// Un bateau utilise cette fonction pour détecter le bateau le plus proche de sa position
+//\param							nmap			carte navale
+//\param							shipID			ID du navire qui lance le radar
+void radarscn (navalmap_t * nmap, const int shipID);
+
 // Un bateau utilise cette fonction pour attaquer une case cible dans la carte
 //\param							nmap			carte navale
 //\param							cible			coordonnés de la case cible

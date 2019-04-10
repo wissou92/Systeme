@@ -25,6 +25,7 @@ void init_shipRessources (navalmap_t * nmap, info_t fic) {
 	for (i=0; i<nmap-> nbShips; ++i) {
 		nmap-> shipInfo [i] .coque = fic .Cmax; 
 		nmap-> shipInfo [i] .kerozene = fic .Kmax; 
+		nmap-> shipInfo [i] .radar .temps = -1;
 	}
 }
 

@@ -17,14 +17,19 @@ void algorithme_decision (navalmap_t * nmap) {
 				break;
 			case 0: // fils
 				// recuperer infos
-				if () { //pos inconnu
+				if (nmap-> shipInfo [i] .radar .temps > 1) { //pos inconnu
 					
 				}
-				else if () {// a porte dattaque + pos connu
-					
+				else if (nmap-> shipInfo [i] .radar .distance > 1 && nmap-> shipInfo [i] .radar .distance < 5) {// a porte dattaque + pos connu
+					attaque (nmap, i, nmap-> shipInfo [i] .radar .shipPos);
 				}
 				else {// deplacement vers pos + pos inconnu
-					
+					coord_t vect;
+					vect .x = (nmap-> shipInfo [i] .radar .shipPos .x - nmap-> shipPosition [i] .x);
+					vect .y = (nmap-> shipInfo [i] .radar .shipPos .x - nmap-> shipPosition [i] .x);
+					//if (vect .x < 0) vect .x = -vect .x;
+					//if (vect .y < 0) vect .y = -vect .y;
+					mouvement (nmap, i, );
 				}
 				exit (2);
 				break;
