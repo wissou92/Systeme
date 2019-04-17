@@ -116,7 +116,7 @@ void radarscn (navalmap_t * nmap, const int shipID) {
 	}
 	nmap-> shipInfo [shipID] .radar .shipCoque = nmap-> shipInfo [ID] .coque;
 	nmap-> shipInfo [shipID] .radar .shipKerozene = nmap-> shipInfo [ID] .kerozene;
-	nmap-> shipInfo [shipID] .radar .shipPos = nmap-> nmap-> shipPosition [ID];	
+	nmap-> shipInfo [shipID] .radar .shipPos = nmap-> shipPosition [ID];	
 	nmap-> shipInfo [shipID] .radar .distance = distance;
 	nmap-> shipInfo [shipID] .radar .temps = 0;
 }

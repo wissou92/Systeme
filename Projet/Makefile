@@ -2,7 +2,7 @@ NOM=SeaOfDevs
 LIB_DIR=./lib
 INCL_DIR=./lib/include
 
-all: compile run
+all: compile
 
 run:
 	./$(NOM) input.sod
