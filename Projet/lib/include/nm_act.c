@@ -21,6 +21,7 @@ void aucun (navalmap_t * nmap, const int shipID) {
 void attaque (navalmap_t * nmap, const int shipID, const coord_t cible) {
 	nmap-> shipInfo [shipID] .kerozene -= 5;
 	int i; int distance = getDistance (nmap-> shipPosition [shipID], cible);
+	
 	if (cible .x > nmap-> size .x || cible .x < 0 ||
 		cible .y > nmap-> size .y || cible .y < 0) {
 		printf ("Invalid target\n");
@@ -88,7 +89,7 @@ void mouvement (navalmap_t * nmap, const int shipID, const coord_t moveVec) {
 	}
 	else if (nmap->isMovePossible (nmap, shipID, moveVec) == 1) {
 		moveShip (nmap, shipID, moveVec);
-		printf ("J%d -> MOV (%d, %d)", shipID + 1, moveVec.x, moveVec.y);
+		printf ("J%d -> MOV (%d, %d)\n", shipID + 1, moveVec.x, moveVec.y);
 	}
 	else {
 		printf ("Invalid movement\n");

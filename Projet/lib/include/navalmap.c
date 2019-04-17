@@ -16,6 +16,7 @@ navalmap_t * init_navalmap_wrapper (info_t fic) {
 	initNavalMapLib ();
 	navalmap_t * nmap = init_navalmap ((strcmp(fic.typeCarte, "rectangle") == 0) ? MAP_RECT : MAP_TOTAL, taille, fic.nbJoueurs);
 	init_shipRessources (nmap, fic);
+	placeRemainingShipsAtRandom (nmap);
 	return nmap;
 }
 
@@ -146,6 +147,7 @@ void free_navalmap (
 		free (nmap->map [j]);
 	free (nmap->map);
 	free (nmap->shipPosition);
+	free (nmap->shipInfo);
 	free (nmap);
 }
 
