@@ -26,17 +26,19 @@ int * elimination (navalmap_t * nmap) {
 			*(en_jeu + i) = 2;
 		}
 	}
+	return en_jeu;
 }
 
 int victoire (int * en_jeu, int nbShips) {
 	int i;
 	int compteur = 0, gagnant;
 	for (i = 0; i< nbShips; ++i) {
-		if ((en_jeu + i) == 0) {
+		if (*(en_jeu + i) == 0) {
 			gagnant = i;
 			++compteur;
 		}
 	}
+	
 	if (compteur == 1) return gagnant;
 	else return -1;
 }
@@ -200,6 +202,7 @@ void algorithme_decision (navalmap_t * nmap) {
 			choix_action (nmap, i, choix [i], (void *) &cible);
 		}
 		printf ("J%d position (%d, %d)\n", i + 1, nmap-> shipPosition [i] .x, nmap-> shipPosition [i] .y);
+		printf ("coque: %d\nkerozene: %d\n\n", nmap-> shipInfo [i] .coque, nmap-> shipInfo [i] . kerozene);
 	}
 	free (choix); free (pid);
 }

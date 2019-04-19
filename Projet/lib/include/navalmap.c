@@ -157,11 +157,11 @@ void moveShip (
 	const coord_t						moveVec) {
 	if (! nmap->isMovePossible (nmap, shipID, moveVec) ) return;
 
-	nmap->map [nmap->shipPosition [shipID] .y][nmap->shipPosition [shipID] .x] .type = ENT_SEA;
+	nmap->map [nmap->shipPosition [shipID] .x][nmap->shipPosition [shipID] .y] .type = ENT_SEA;
 	nmap->shipPosition [shipID] .x += moveVec.x;
 	nmap->shipPosition [shipID] .y += moveVec.y;
-	nmap->map [nmap->shipPosition [shipID] .y][nmap->shipPosition [shipID] .x] .type = ENT_SHIP;
-	nmap->map [nmap->shipPosition [shipID] .y][nmap->shipPosition [shipID] .x] .id = shipID;
+	nmap->map [nmap->shipPosition [shipID] .x][nmap->shipPosition [shipID] .y] .type = ENT_SHIP;
+	nmap->map [nmap->shipPosition [shipID] .x][nmap->shipPosition [shipID] .y] .id = shipID;
 }
 
 void placeRemainingShipsAtRandom (

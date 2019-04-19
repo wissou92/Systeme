@@ -12,7 +12,7 @@ int main (int argc, char ** argv) {
 	info_t fic = read_input (argv [1]);
 	navalmap_t * nmap = init_navalmap_wrapper (fic);
 	int tour, vainqueur;
-	// Probleme d'inversion de x et y
+	
 	for (tour = 0; tour < fic .nbTours; ++tour) {
 		vainqueur = victoire (elimination (nmap), nmap->nbShips);
 		if (vainqueur != -1) break;
