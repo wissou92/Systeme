@@ -8,39 +8,38 @@
 
 void game_over (int vainqueur)
 {
-	printf ("J%d a gagné\n", vainqueur + 1);
+	if (vainqueur >= 0) { 
+		printf ("J%d a gagné\n", vainqueur + 1);
+	}
+	else printf ("Aucun joueur restant\n");
+	
 	exit(0);
 }
 
-int * elimination (navalmap_t * nmap) {
+void joueur_restant (navalmap_t * nmap, int * tab) {
 	int i;
-	int * en_jeu = malloc (sizeof (int) * nmap-> nbShips);
-	for (i=0; i<nmap-> nbShips; ++i) *(en_jeu + i) = 0;
-	for (i=0; i<nmap-> nbShips; ++i) {
-		if (nmap-> shipInfo [i] .coque <= 0) {
-			//printf ("J%d éliminé: coque annéantie\n", i+1);
-			*(en_jeu + i) = 1;
+	for (i = 0; i<nmap-> nbShips; ++i) {
+		tab [i] = 1;
+		if (nmap-> shipInfo [i] .coque <= 0 || nmap-> shipInfo [i] .kerozene <= 0)
+		{
+			tab [i] = 0;
 		}
-		else if (nmap-> shipInfo [i] .kerozene <= 0) {
-			//printf ("J%d éliminé: plus de kerozene\n", i+1);
-			*(en_jeu + i) = 2;
-		}
+		printf ("t[%d] = %d\n", i, tab [i]);
 	}
-	return en_jeu;
 }
 
-int victoire (int * en_jeu, int nbShips) {
-	int i;
-	int compteur = 0, gagnant;
-	for (i = 0; i< nbShips; ++i) {
-		if (*(en_jeu + i) == 0) {
+int detecte_vainqueur (int * tab, const int nbShips) {
+	int i, compteur = 0, gagnant = 0;
+	for (i = 0; i < nbShips; ++i) {
+		if (tab [i] == 1) {
+			compteur++;
 			gagnant = i;
-			++compteur;
 		}
 	}
-	
+	printf ("compteur = %d\ngagnant = %d\n", compteur, gagnant);
 	if (compteur == 1) return gagnant;
-	else return -1;
+	else if (compteur == 0) return -1;
+	else return -2;
 }
 
 void choix_action (navalmap_t * nmap, const int shipID, int choix, void * arg) {
@@ -67,10 +66,58 @@ void choix_action (navalmap_t * nmap, const int shipID, int choix, void * arg) {
 	}
 }
 
-coord_t vecteur_deplacement (coord_t ship_mv, coord_t cible) 
+coord_t vecteur_deplacement (coord_t ship_mv, coord_t cible, int distance) 
 { 
 	coord_t mouv;
-	if (cible .x == ship_mv .x) 
+	if (distance == 1 || distance == 0) {
+		if (cible .x == ship_mv .x)
+		{
+			if (cible .y == ship_mv .y)
+			{
+				mouv .x = rand () %2;
+				mouv .y = rand () %2;
+			}
+			else if(cible .y < ship_mv .y) 
+			{
+				mouv .x = 0;
+				mouv .y = 1;
+			}
+			else 
+			{
+				mouv .x = 0;
+				mouv .y = -1;
+			}
+		}
+		else if (cible .x < ship_mv .x) {
+			if (cible .y == ship_mv .y) {
+				mouv .x = 1;
+				mouv .y = 0;
+			}
+			else if (cible .y < ship_mv .y) {
+				mouv .x = 1;
+				mouv .y = 1;
+			}
+			else {
+				mouv .x = 1;
+				mouv .y = -1;
+			}
+		}
+		else {
+			if (cible .y == ship_mv .y) {
+				mouv .x = -1;
+				mouv .y = 0;
+			}
+			else if (cible .y < ship_mv .y) {
+				mouv .x = -1;
+				mouv .y = 1;
+			}
+			else {
+				mouv .x = -1;
+				mouv .y = -1;
+			}
+		}
+	}
+	else if (cible .x == ship_mv .x) 
 	{
 		if (cible .y < ship_mv .y)
 		{
@@ -193,7 +240,7 @@ void algorithme_decision (navalmap_t * nmap) {
 		}
 		else if (choix [i] == 1) 				// mouvement
 		{
-			coord_t mouv = vecteur_deplacement (nmap-> shipPosition [i], nmap-> shipInfo [i] .radar .shipPos);
+			coord_t mouv = vecteur_deplacement (nmap-> shipPosition [i], nmap-> shipInfo [i] .radar .shipPos, nmap-> shipInfo [i] .radar .distance);
 			choix_action (nmap, i, choix [i], (void *) &mouv);
 		}
 		else if (choix [i] == 2) 				// attaque

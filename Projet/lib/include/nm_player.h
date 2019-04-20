@@ -15,12 +15,14 @@ void choix_action (navalmap_t * nmap, const int shipID, int choix, void * arg);
 // Renvoit un vecteur déplaçant un bateau vers un bateau cible
 //\param							ship_mv			navire de base
 //\param							cible			navire cible du navire de base
-coord_t vecteur_deplacement (coord_t ship_mv, coord_t cible);
+//\param							distance		distance entre les deux navires
+coord_t vecteur_deplacement (coord_t ship_mv, coord_t cible, int distance);
 
 
 void game_over (int vainqueur);
 
 
-int * elimination (navalmap_t * nmap);
+int detecte_vainqueur (int * tab, const int nbShips);
 
-int victoire (int * en_jeu, int nbShips);
+
+void joueur_restant (navalmap_t * nmap, int * tab);

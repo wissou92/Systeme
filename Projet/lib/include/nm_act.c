@@ -38,22 +38,33 @@ void attaque (navalmap_t * nmap, const int shipID, const coord_t cible) {
 		nmap-> shipInfo [nmap->map [cible .x][cible .y] .id] . coque -= 40;
 		printf ("J%d -> ATK (%d, %d) -> J%d subit 40C\n", shipID + 1, cible.x, cible.y, nmap->map [cible .x][cible .y] .id + 1);
 	}
-	
-	if (nmap -> map [cible .x + 1][cible .y] .type == ENT_SHIP) { // a droite de la cible
-		nmap-> shipInfo [nmap->map [cible .x + 1][cible .y] .id] . coque -= 20;
-		printf ("J%d -> ATK (%d, %d) -> J%d subit 20C\n", shipID + 1, cible.x + 1, cible.y, nmap->map [cible .x + 1][cible .y] .id + 1);
+	if (cible .x != nmap-> size .x)
+	{
+		if (nmap -> map [cible .x + 1][cible .y] .type == ENT_SHIP) { // a droite de la cible
+			nmap-> shipInfo [nmap->map [cible .x + 1][cible .y] .id] . coque -= 20;
+			printf ("J%d -> ATK (%d, %d) -> J%d subit 20C\n", shipID + 1, cible.x + 1, cible.y, nmap->map [cible .x + 1][cible .y] .id + 1);
+		}
 	}
-	if (nmap -> map [cible .x - 1][cible .y] .type == ENT_SHIP) { // a gauche de la cible
-		nmap-> shipInfo [nmap->map [cible .x - 1][cible .y] .id] . coque -= 20;
-		printf ("J%d -> ATK (%d, %d) -> J%d subit 20C\n", shipID + 1, cible.x - 1, cible.y, nmap->map [cible .x - 1][cible .y] .id + 1);
+	if (cible .x != 0)
+	{
+		if (nmap -> map [cible .x - 1][cible .y] .type == ENT_SHIP) { // a gauche de la cible
+			nmap-> shipInfo [nmap->map [cible .x - 1][cible .y] .id] . coque -= 20;
+			printf ("J%d -> ATK (%d, %d) -> J%d subit 20C\n", shipID + 1, cible.x - 1, cible.y, nmap->map [cible .x - 1][cible .y] .id + 1);
+		}
 	}
-	if (nmap -> map [cible .x][cible .y + 1] .type == ENT_SHIP) { // en haut de la cible
-		nmap-> shipInfo [nmap->map [cible .x][cible .y + 1] .id] . coque -= 20;
-		printf ("J%d -> ATK (%d, %d) -> J%d subit 20C\n", shipID + 1, cible.x, cible.y + 1, nmap->map [cible .x][cible .y + 1] .id + 1);
+	if (cible .y != nmap-> size .y)
+	{
+		if (nmap -> map [cible .x][cible .y + 1] .type == ENT_SHIP) { // en haut de la cible
+			nmap-> shipInfo [nmap->map [cible .x][cible .y + 1] .id] . coque -= 20;
+			printf ("J%d -> ATK (%d, %d) -> J%d subit 20C\n", shipID + 1, cible.x, cible.y + 1, nmap->map [cible .x][cible .y + 1] .id + 1);
+		}
 	}
-	if (nmap -> map [cible .x][cible .y - 1] .type == ENT_SHIP) { // en bas de la cible
-		nmap-> shipInfo [nmap->map [cible .x][cible .y - 1] .id] . coque -= 20;
-		printf ("J%d -> ATK (%d, %d) -> J%d subit 20C\n", shipID + 1, cible.x, cible.y - 1, nmap->map [cible .x][cible .y - 1] .id + 1);
+	if (cible .y != 0)
+	{
+		if (nmap -> map [cible .x][cible .y - 1] .type == ENT_SHIP) { // en bas de la cible
+			nmap-> shipInfo [nmap->map [cible .x][cible .y - 1] .id] . coque -= 20;
+			printf ("J%d -> ATK (%d, %d) -> J%d subit 20C\n", shipID + 1, cible.x, cible.y - 1, nmap->map [cible .x][cible .y - 1] .id + 1);
+		}
 	}
 }
 
