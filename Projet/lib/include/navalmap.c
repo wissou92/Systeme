@@ -28,6 +28,7 @@ void init_shipRessources (navalmap_t * nmap, info_t fic) {
 		nmap-> shipInfo [i] .kerozene = fic .Kmax; 
 		nmap-> shipInfo [i] .radar .temps = -1;
 		nmap-> shipInfo [i] .en_vie = 1;
+	}
 }
 
 void switch_info (info_t * fic, int i, char * string) {
@@ -117,9 +118,9 @@ navalmap_t * init_navalmap (
 	nmap->shipPosition = malloc (nbShips * sizeof (coord_t) );
 	for (j = 0; j < nbShips; ++j)
 		nmap->shipPosition [j] .x = -1;
-	nmap->map = malloc (mapSize.y * sizeof (entityid_t *) );
-	for (j = 0; j < mapSize.y; ++j)
-		nmap->map [j] = malloc (mapSize.x * sizeof (entityid_t) );
+	nmap->map = malloc (mapSize .x * sizeof (entityid_t *) );
+	for (j = 0; j < mapSize .x; ++j)
+		nmap->map [j] = malloc (mapSize .y * sizeof (entityid_t) );
 
 	switch (mapType) {
 		case MAP_RECT:

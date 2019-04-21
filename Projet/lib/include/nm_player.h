@@ -21,7 +21,7 @@ coord_t vecteur_deplacement (coord_t ship_mv, coord_t cible, int distance);
 // Detecte s'il y a un vainqueur ou non
 //\param							nmap			carte navale
 //\return											ID du vainqueur / -1 si pas de vainqueur / -2 plusieurs navire encore en jeu
-int detecte_vainqueur (navalmap_t nmap);
+int detecte_vainqueur (navalmap_t * nmap);
 
 // Termine le programme en affichant le vainqueur s'il y en a
 //\param							vainqueur		ID du vainqueur ou -1 s'il y en a pas

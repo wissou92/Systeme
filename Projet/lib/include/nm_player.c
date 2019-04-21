@@ -15,7 +15,7 @@ void game_over (int vainqueur)
 	exit(0);
 }
 
-int detecte_vainqueur (navalmap_t nmap) {
+int detecte_vainqueur (navalmap_t * nmap) {
 	int i;
 	int compteur = 0, gagnant = -1;
 	for (i = 0; i<nmap-> nbShips; ++i) {
@@ -35,7 +35,7 @@ void choix_action (navalmap_t * nmap, const int shipID, int choix, void * arg) {
 	}
 	switch (choix) {
 		case -1:
-			printf ("J%d Hors-Service\n");
+			printf ("J%d Hors-Service\n", shipID + 1);
 			break;
 		case 0:				// aucune action
 			aucun (nmap, shipID);

@@ -124,13 +124,24 @@ void mouvement (navalmap_t * nmap, const int shipID, const coord_t moveVec) {
 	}
 }
 
-void charge (navalmap_t * nmap, const int shipID, const coord_t cible) {
+void charge (navalmap_t * nmap, const int shipID, const coord_t mouv) {
 	nmap-> shipInfo [shipID] .kerozene -= 3;
+	coord_t cible;
+	cible .x = nmap-> shipPosition [shipID] .x + mouv .x;
+	cible .y = nmap-> shipPosition [shipID] .y + mouv .y;
 	int distance = getDistance (nmap-> shipPosition [shipID], cible);
 	
-	if ( (distance != 4 && distance != 5) && (cible .x != nmap-> shipPosition [shipID] .x && cible .y != nmap-> shipPosition [shipID] .y) ) {
+	if (cible .x < 0 || cible .x > nmap-> size .x || cible .y < 0 || cible .y > nmap-> size .y) {
+		printf ("Invalid charge\n");
+		return;
+	}
+	else if ( (distance != 4 && distance != 5) || (cible .x != nmap-> shipPosition [shipID] .x && cible .y != nmap-> shipPosition [shipID] .y) ) {
 		printf ("Charge impossible");
 		return;
+	}
+	else if (nmap-> map [cible .x][cible .y] .type == ENT_SHIP) {
+		nmap-> shipInfo [nmap-> shipInfo [shipID] .coque -= 5;
+		nmap-> shipInfo [nmap-> map [cible .x][cible .y] .id] .coque -= 50;
 	}
 }
 
@@ -158,5 +169,11 @@ void radarscn (navalmap_t * nmap, const int shipID) {
 	nmap-> shipInfo [shipID] .radar .shipPos = nmap-> shipPosition [ID];	
 	nmap-> shipInfo [shipID] .radar .distance = distance;
 	nmap-> shipInfo [shipID] .radar .temps = 0;
+}
+
+void reparation (navalmap_t * nmap, const int shipID) {
+	nmap-> shipInfo [shipID] .kerozene -= 20;
+	nmap-> shipInfo [shipID] .coque += 25;
+	printf ("J%d -> RPR\n", shipID + 1);
 }
 
