@@ -30,7 +30,7 @@ int main (int argc, char ** argv) {
 	}
 	
 	info_t fic = read_input (argv [1]);
-	if (fic .nbShips < 2) {
+	if (fic .nbJoueurs < 2) {
 		printf ("This game necessit more players\n");
 		exit (1);
 	}
@@ -40,7 +40,7 @@ int main (int argc, char ** argv) {
 	/**
 	 * code pour joueur contre joueur
 	 * */
-	//vainqueur = J_vs_J (nmap, fic .nbTours);
+	vainqueur = J_vs_J (nmap, fic .nbTours);
 	/**
 	 * code pour equipe contre equipe
 	 * */

@@ -154,4 +154,5 @@ void init_shipRessources (navalmap_t * nmap, info_t fic);
 #include "nm_rect.h"
 #include "nm_act.h"
 #include "nm_player.h"
+#include "nm_team.h"
 #endif

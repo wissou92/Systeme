@@ -140,8 +140,15 @@ void charge (navalmap_t * nmap, const int shipID, const coord_t mouv) {
 		return;
 	}
 	else if (nmap-> map [cible .x][cible .y] .type == ENT_SHIP) {
-		nmap-> shipInfo [nmap-> shipInfo [shipID] .coque -= 5;
+		nmap-> shipInfo [shipID] .coque -= 5;
 		nmap-> shipInfo [nmap-> map [cible .x][cible .y] .id] .coque -= 50;
+		moveShip (nmap, shipID, mouv);
+		elimine (nmap, nmap->map [cible .x][cible .y] .id);
+		printf ("J%d -> BST (%d, %d) -> J%d subit 5C et J%d subit 50C\n", shipID + 1, cible .x, cible .y, shipID + 1, nmap->map [cible .x][cible .y] .id + 1);
+	}
+	else {
+		moveShip (nmap, shipID, mouv);
+		printf ("J%d -> BST (%d, %d) -> Aucune cible touchée\n", shipID + 1, cible .x, cible .y);
 	}
 }
 
