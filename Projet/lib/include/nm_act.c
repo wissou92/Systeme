@@ -107,7 +107,17 @@ void mouvement (navalmap_t * nmap, const int shipID, const coord_t moveVec) {
 	}
 }
 
-//					LES RADARS
+void charge (navalmap_t * nmap, const int shipID, const coord_t cible) {
+	nmap-> shipInfo [shipID] .kerozene -= 3;
+	int distance = getDistance (nmap-> shipPosition [shipID], cible);
+	
+	if ( (distance != 4 && distance != 5) && (cible .x != nmap-> shipPosition [shipID] .x && cible .y != nmap-> shipPosition [shipID] .y) ) {
+		printf ("Charge impossible");
+		return;
+	}
+}
+
+//					LES SOUTIENS
 void radarscn (navalmap_t * nmap, const int shipID) {
 	nmap-> shipInfo [shipID] .kerozene -= 3;
 	printf ("J%d -> SCN\n", shipID + 1);

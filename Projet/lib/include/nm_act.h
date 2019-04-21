@@ -23,6 +23,12 @@ void bombardier (navalmap_t * nmap, const int shipID, const coord_t cible);
 //\param							moveVec			Vecteur du déplacement
 void mouvement (navalmap_t * nmap, const int shipID, const coord_t moveVec);
 
+// Un bateau utilise cette fonction pour se déplacer
+//\param							nmap			carte navale
+//\param							shipID			ID du navire qui charge
+//\param							cible			case d'arrivée
+void charge (navalmap_t * nmap, const int shipID, const coord_t cible);
+
 // Un bateau utilise cette fonction pour... ne rien faire
 //\param							nmap			carte navale
 //\param							shipID			ID du navire
@@ -31,5 +37,6 @@ void aucun (navalmap_t * nmap, const int shipID);
 // Retourne la distance entre deux cases en "vecteur" (valeur absolue) entre deux cases
 //\param							initial			case de départ
 //\param							cible			case d'arrivée
+//\return											distance entre 2 coordonnées
 int getDistance (coord_t initial, coord_t cible);
 

@@ -141,11 +141,14 @@ size_t getFileSize(char * filename);
 // \return												structure contenant les informations du fichier
 info_t read_input (char * filename);
 
-// initialise la carte navale en fonction de la structure contenant les informations nécessaires
+// Initialise la carte navale en fonction de la structure contenant les informations nécessaires
 // \param								fic				structure avec les informations
 // \return												carte navale initialisée
 navalmap_t * init_navalmap_wrapper (info_t fic);
 
+// Initialise les navires et leur ressources en fonction des informations reçues du fichier d'entrée
+// \param								nmap			carte navale
+// \param								fic				structure contenant les informations du fichier d'entrée
 void init_shipRessources (navalmap_t * nmap, info_t fic);
 
 #include "nm_rect.h"

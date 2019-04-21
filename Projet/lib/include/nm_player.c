@@ -66,8 +66,7 @@ void choix_action (navalmap_t * nmap, const int shipID, int choix, void * arg) {
 	}
 }
 
-coord_t vecteur_deplacement (coord_t ship_mv, coord_t cible, int distance) 
-{ 
+coord_t vecteur_deplacement (coord_t ship_mv, coord_t cible, int distance) { 
 	coord_t mouv;
 	if (distance == 1 || distance == 0) {
 		if (cible .x == ship_mv .x)
