@@ -27,7 +27,7 @@ void init_shipRessources (navalmap_t * nmap, info_t fic) {
 		nmap-> shipInfo [i] .coque = fic .Cmax; 
 		nmap-> shipInfo [i] .kerozene = fic .Kmax; 
 		nmap-> shipInfo [i] .radar .temps = -1;
-	}
+		nmap-> shipInfo [i] .en_vie = 1;
 }
 
 void switch_info (info_t * fic, int i, char * string) {

@@ -12,33 +12,20 @@ void game_over (int vainqueur)
 		printf ("J%d a gagné\n", vainqueur + 1);
 	}
 	else printf ("Aucun joueur restant\n");
-	
 	exit(0);
 }
 
-void joueur_restant (navalmap_t * nmap, int * tab) {
+int detecte_vainqueur (navalmap_t nmap) {
 	int i;
+	int compteur = 0, gagnant = -1;
 	for (i = 0; i<nmap-> nbShips; ++i) {
-		tab [i] = 1;
-		if (nmap-> shipInfo [i] .coque <= 0 || nmap-> shipInfo [i] .kerozene <= 0)
+		if (nmap-> shipInfo [i] .en_vie == 1)
 		{
-			tab [i] = 0;
-		}
-		printf ("t[%d] = %d\n", i, tab [i]);
-	}
-}
-
-int detecte_vainqueur (int * tab, const int nbShips) {
-	int i, compteur = 0, gagnant = 0;
-	for (i = 0; i < nbShips; ++i) {
-		if (tab [i] == 1) {
 			compteur++;
 			gagnant = i;
 		}
 	}
-	printf ("compteur = %d\ngagnant = %d\n", compteur, gagnant);
-	if (compteur == 1) return gagnant;
-	else if (compteur == 0) return -1;
+	if (compteur == 0 || compteur == 1) return gagnant;
 	else return -2;
 }
 
@@ -47,6 +34,9 @@ void choix_action (navalmap_t * nmap, const int shipID, int choix, void * arg) {
 		++nmap-> shipInfo [shipID] .radar .temps;
 	}
 	switch (choix) {
+		case -1:
+			printf ("J%d Hors-Service\n");
+			break;
 		case 0:				// aucune action
 			aucun (nmap, shipID);
 			break;
@@ -207,7 +197,10 @@ void algorithme_decision (navalmap_t * nmap) {
 
 				int decision;
 				
-				if (info .radar .temps > 1 || info .radar .temps == -1) { //pos inconnu ou radar trop vieux
+				if (info .en_vie == 0) { // navire coulé
+					decision = -1;
+				}
+				else if (info .radar .temps > 1 || info .radar .temps == -1) { //pos inconnu ou radar trop vieux
 					// Il doit faire radar renvoyer 3
 					decision = 3;
 				}
@@ -233,7 +226,10 @@ void algorithme_decision (navalmap_t * nmap) {
 	for (i=0; i<nmap-> nbShips; ++i) {
 		wait (NULL);
 		
-		if (choix [i] == 3 || choix [i] == 0) 	// radar || non-action
+		if (choix [i] == -1) {
+			choix_action (nmap, i, choix [i], NULL);
+		}
+		else if (choix [i] == 3 || choix [i] == 0) 	// radar || non-action
 		{
 			choix_action (nmap, i, choix [i], NULL);
 		}

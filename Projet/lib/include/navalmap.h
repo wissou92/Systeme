@@ -33,7 +33,7 @@ typedef struct ship {
 	int coque;												//< Pdv de la coque
 	int kerozene;											//< Réservoir de kerozene
 	radar_t radar;											//< radar 
-
+	int en_vie;												//< Etat du navire pendant la partie (1 = en vie; 0 sinon);
 	/*void (* aucun)			(struct navalmap *, const int);
 												//< ne fait rien
 	void (* mouvement)		(struct navalmap *, const int, const coord_t);

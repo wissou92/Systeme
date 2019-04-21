@@ -1,3 +1,7 @@
+/**
+ * @author SERHAN Wissam, CRENIER Melvin
+ * @version Avril 2019
+ * */
 #include "navalmap.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -9,10 +13,9 @@ int J_vs_J (navalmap_t * nmap, int nbTours)
 	int vainqueur;
 	
 	for (tour = 0; tour < nbTours; ++tour) {
-		joueur_restant (nmap, tab);
-		vainqueur = detecte_vainqueur (tab, nmap-> nbShips);
+		vainqueur = detecte_vainqueur (nmap);
 		if (vainqueur == -1 || vainqueur >= 0) break;
-		printf ("\n-------\nTOUR %d:\n-------\n\n", tour +1);
+		printf ("\n--------\nTOUR %d:\n--------\n\n", tour +1);
 		algorithme_decision (nmap);
 	}
 	free (tab);
